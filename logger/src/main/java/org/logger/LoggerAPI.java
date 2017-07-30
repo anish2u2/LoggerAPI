@@ -39,8 +39,15 @@ public class LoggerAPI {
 	}
 
 	public static void logInfo(String info) {
+		if (getFileWriter() == null) {
+			setWriterToConsole();
+		}
 		getFileWriter().println("[" + new Date() + " INFO" + "] " + info);
 		LoggerAPI.flush(writer);
+	}
+
+	private static void setWriterToConsole() {
+		writer = new PrintWriter(System.out);
 	}
 
 	public static void logError(String error) {
